@@ -1,0 +1,61 @@
+﻿/*** --- Document params --- ***/
+html,
+body {
+	height: 100%;
+	background: #FFF;
+	color: #000;
+	font: normal 12px/1.5 Arial, Helvetica, sans-serif;
+}
+
+
+/*** --- Default elements --- ***/
+p {
+	margin-bottom: 1em;
+}
+.clear {
+	clear: both;
+}
+.hidden {
+	display: none;
+}
+
+
+/*** --- Links --- ***/
+a,
+.link__text {
+	color: #00D;
+	text-decoration: underline;
+}
+a,
+.link {
+	cursor: pointer;
+}
+.link {
+	text-decoration: none;
+}
+.link_pseudo .link__text {
+	text-decoration: none;
+	border-bottom: 1px dotted #00D;
+}
+a:hover,
+.link:hover .link__text {
+	color: #D00;
+}
+.link_pseudo:hover .link__text {
+	border-bottom-color: #D00;
+}
+
+
+/*** --- Page --- ***/
+.page {
+	position: relative;
+	overflow: hidden;
+	min-height: 100%;
+	min-width: 1000px;
+}
+
+
+/*** --- Some block --- ***/
+.some-block {
+	
+}
