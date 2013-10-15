@@ -52,3 +52,6 @@ textarea {
 address {
 	font-style:normal;
 }
+input, textarea {
+	outline:none;
+}
