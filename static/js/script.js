@@ -10,7 +10,8 @@ $(function(){
 // Run scripts in selected jQuery block
 $.fn.run = function(){
 
-	var $root = this;
+	var $root = this,
+		$window = $(window);
 
 	// example:
 	// $root.find('.some-block').animate({ opacity: 0.5 }, 500);
