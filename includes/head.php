@@ -1,6 +1,6 @@
 <head>
 	<? $version = '1.0'; ?>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
 	<title>Page title</title>
 	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
 	<!-- Stylesheet -->
