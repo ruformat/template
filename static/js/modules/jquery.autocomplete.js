@@ -69,6 +69,7 @@
                 type: 'GET',
                 noCache: false,
                 onSearchStart: noop,
+                onActivate: noop,
                 onSearchComplete: noop,
                 onSearchError: noop,
                 containerClass: 'autocomplete-suggestions',
@@ -672,19 +673,25 @@
                 activeItem,
                 selected = that.classes.selected,
                 container = $(that.suggestionsContainer),
-                children = container.children();
+				onActivateCallback = that.options.onActivate,
+                children = container.children(),
+				item = null;
 
             container.children('.' + selected).removeClass(selected);
 
             that.selectedIndex = index;
-
+			
             if (that.selectedIndex !== -1 && children.length > that.selectedIndex) {
                 activeItem = children.get(that.selectedIndex);
                 $(activeItem).addClass(selected);
-                return activeItem;
+                item = activeItem;
             }
 
-            return null;
+			if ($.isFunction(onActivateCallback)) {
+                onActivateCallback.call(item, that.selectedIndex);
+            }
+			
+            return item;
         },
 
         selectHint: function () {
