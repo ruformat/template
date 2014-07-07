@@ -22,15 +22,29 @@ $.fn.ini = function(){
 	/* scroll bar */
 	$('.scroll_bar').jScrollPane();
 	
+	/* scroll to .goto */
+	$('.goto').goto();
+	
+	$('.cart').cart();
 	
 };
 
-$.fn.cart = function(){
+$.fn.goto = function(){
 
 	var $root = this,
-		$window = $(window);
+		$scroller = $([]);
+		
+	if ($root.length) $scroller = $root.first();
+		
+	if ($scroller.length) $('html').scrollTo($scroller, 350);
 
-	$root.find('.autocomplete').each(function(){
+}
+
+$.fn.autocomplete = function(onSelectCallback = null){
+
+	var $root = this;
+		
+	$root.each(function(){
 		var $value_input = $(this),
 			$data_input = $("<input/>", {
 				  type: "hidden",
@@ -94,10 +108,21 @@ $.fn.cart = function(){
 				{
 					$bg_input.val(suggestion.value);
 					$data_input.val(suggestion.data);
-					submitForm();
+					if ($.isFunction(onSelectCallback)) {
+						onSelectCallback.call();
+					}
 				}
 			}
 		});
 	});
+
+}
+
+$.fn.cart = function(){
+
+	var $root = this,
+		$window = $(window);
+
+	$root.find('.autocomplete').autocomplete(submitForm);
 	
 };
