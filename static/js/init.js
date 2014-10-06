@@ -1,4 +1,6 @@
 // DOM ready event
+var submitForm = $.noop;
+
 $(function(){
 
 	// init scripts in .page block
@@ -25,6 +27,7 @@ $.fn.ini = function(){
 	/* scroll to .goto */
 	$('.goto').goto();
 	
+	/* cart ajax */
 	$('.cart').cart();
 	
 };
@@ -122,6 +125,32 @@ $.fn.cart = function(){
 
 	var $root = this,
 		$window = $(window);
+
+	var submitForm = function(){
+		clearTimeout(timer);
+		timer = setTimeout(function(){
+			if (request!=undefined) request.abort();
+			$form.ajaxSubmit({
+				data: {
+					confirmorder: 'N',
+					profile_change: 'N',
+					is_ajax_post: 'Y'
+				},
+				success: function(data) {
+					$form.html(data).run();
+					hideLoading();
+					return false;
+				}, beforeSend: function(xhr,s){
+					showLoading();
+					request = xhr;
+				}, error: function(data){
+					hideLoading();
+					return false;
+				}
+			});
+		},500);
+		return true;
+	};
 
 	$root.find('.autocomplete').autocomplete(submitForm);
 	

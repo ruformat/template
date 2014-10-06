@@ -11,7 +11,6 @@
 <body>
 
 	<div class="page">
-
 		<div class="container">
 
 			<h1>Верстка</h1>
@@ -52,14 +51,13 @@
 					<?php foreach ($files as $file) { ?><?php if ($file!='.' && $file!='..' && is_dir($file)==false && $file[0]!='_' && $file[0]!='.' && $file!='index.php' && (contains('.htm',$file) || contains('.php',$file))) { ?>
 						<tr>
 							<td style="width:20px;"><?php echo ++$counter; ?>.</td>
-							<td><a href="<?php echo $file; ?>" target="_blank"><?php
-									$title = str_replace('-',' ',$file);
-									$title = str_replace('_',' ',$title);
-									$title = str_replace('.php','',$title);
-									$title = str_replace('.html','',$title);
-									$title = str_replace('.htm','',$title);
-									$title = ucwords($title);
-									echo $title; ?></a></td>
+							<td>
+								<a href="<?php echo $file; ?>" target="_blank">
+									<?unset($title);ob_start();include($file);ob_end_clean();
+									if(!strlen($title)) $title = ucwords(str_replace(array('-','_','.php','.html','.htm'),array(' ',' ','','',''),$file));?>
+									<?echo $title; ?>
+								</a>
+							</td>
 							<td><small><?php echo $file; ?></small></td>
 						</tr>
 						<?php } ?>
