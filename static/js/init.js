@@ -4,7 +4,7 @@ var submitForm = $.noop;
 $(function(){
 
 	// init scripts in .page block
-	$('.page:first').ini();
+	$('body').ini();
 
 });
 
@@ -12,23 +12,25 @@ $(function(){
 // Init scripts in selected jQuery block
 $.fn.ini = function(){
 
+console.log("ini");
+
 	var $root = this,
 		$window = $(window);
 
 	/* validate */
-	$('form').validate();
+	$root.find('form').validate();
 	
 	/* slider */
-	$('.slider').scrollable({circular: true,vertical: false, mousewheel: false}).navigator('.slider_bullets').autoscroll({ autoplay: true, interval: 4000, autopause: false });
+	$root.find('.slider').scrollable({circular: true,vertical: false, mousewheel: false}).navigator('.slider_bullets').autoscroll({ autoplay: true, interval: 4000, autopause: false });
 	
 	/* scroll bar */
-	$('.scroll_bar').jScrollPane();
+	$root.find('.scroll_bar').jScrollPane();
 	
 	/* scroll to .goto */
-	$('.goto').goto();
+	$root.find('.goto').goto();
 	
 	/* cart ajax */
-	$('.cart').cart();
+	$root.find('.cart').cart();
 	
 };
 
@@ -122,11 +124,27 @@ $.fn.autocomplete = function(onSelectCallback = null){
 }
 
 $.fn.cart = function(){
+console.log("cart");
+	var $form = this,
+		$window = $(window),
+		$spinner = $form.append('<div class="fixed-spinner" />').find('.fixed-spinner'),
+		$overlay = $form.append('<div class="block-overlay" />').find('.block-overlay'),
+		timer,
+		request,
+		loading;
+	// loading
+	var showLoading = function(){
+		loading = setTimeout(function(){
+			$spinner.add($overlay).show();
+		}, 150);
+	};
+	var hideLoading = function(){
+		clearTimeout(loading);
+		$spinner.add($overlay).hide();
+	};
 
-	var $root = this,
-		$window = $(window);
-
-	var submitForm = function(){
+	submitForm = function(){
+	console.log("submitForm");
 		clearTimeout(timer);
 		timer = setTimeout(function(){
 			if (request!=undefined) request.abort();
@@ -152,8 +170,10 @@ $.fn.cart = function(){
 		return true;
 	};
 
-	$root.find('.autocomplete').autocomplete(submitForm);
-	
+	$form.find('.autocomplete').autocomplete(submitForm);
+
+
+	//$form.find('.submit').click(submitForm);
 };
 
 jQuery.extend(jQuery.validator.messages, {
@@ -165,7 +185,7 @@ jQuery.extend(jQuery.validator.messages, {
         dateISO: "Пожалуйста, введите корректную дату в формате ISO.",
         number: "Пожалуйста, введите число.",
         digits: "Пожалуйста, вводите только цифры.",
-        creditcard: "Пожалуйста, введите правильный номер кредитной карты.",
+        creditcard: "Пожалуйста, введите правильный   кредитной карты.",
         equalTo: "Пожалуйста, введите такое же значение ещё раз.",
         accept: "Пожалуйста, выберите файл с правильным расширением.",
         maxlength: jQuery.validator.format("Пожалуйста, введите не больше {0} символов."),
