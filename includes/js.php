@@ -1,4 +1,4 @@
-<?$js_folder = "/static/".VERSION."/js";?>
+<?$js_folder = "/template/static/".VERSION."/js";?>
 <script src="<?=$js_folder?>/jquery.js"></script>
 <?
 $include_folder = $_SERVER["DOCUMENT_ROOT"]."/static/js/modules";
